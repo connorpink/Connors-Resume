@@ -1,14 +1,14 @@
-# 📄 Connor Pink - Resume
+# Connor Pink - Resume
 
 My professional resume built with LaTeX using the popular Jake's Resume template. This repository contains both the source `.tex` file and the compiled PDF, with automated builds and versioned releases.
 
 ---
 
-## 📋 Preview
+## Preview
 
 <div align="center">
   
-### [📥 Download PDF](resume.pdf) | [👁️ View PDF](../../blob/main/resume.pdf) | [📦 All Releases](../../releases)
+### [Download PDF](resume.pdf) | [View PDF](../../blob/main/resume.pdf) | [All Releases](../../releases)
 
 <a href="resume.pdf">
   <img src="https://img.shields.io/badge/Resume-PDF-red?style=for-the-badge&logo=adobe-acrobat-reader" alt="Resume PDF"/>
@@ -29,7 +29,7 @@ My professional resume built with LaTeX using the popular Jake's Resume template
 
 ---
 
-## 🎓 About
+## About
 
 **Current Position:** M.Sc. Computer Science Student & Graduate Research Assistant  
 **Institution:** Guelph University  
@@ -37,7 +37,7 @@ My professional resume built with LaTeX using the popular Jake's Resume template
 
 ---
 
-## 🤖 Automated Workflow
+## Automated Workflow
 
 This repository uses **GitHub Actions** to automatically build and release your resume whenever `main.tex` is updated.
 
@@ -47,10 +47,10 @@ This repository uses **GitHub Actions** to automatically build and release your 
 2. **Commit** with an optional job tag (see below)
 3. **Push** to GitHub
 4. **Workflow automatically:**
-   - ✅ Compiles LaTeX to PDF
-   - 🖼️ Generates preview.jpg
-   - 📤 Commits PDF and preview back to repo
-   - 🏷️ Creates a tagged release
+   - Compiles LaTeX to PDF
+   - Generates preview.jpg
+   - Commits PDF and preview back to repo
+   - Creates a tagged release
 
 ### Tagging Releases for Specific Jobs
 
@@ -86,16 +86,16 @@ git push
 Your releases page will show a complete history:
 
 ```
-📦 Google-SWE-2025.01.15-0930
+Google-SWE-2025.01.15-0930
    Resume - Google SWE (2025.01.15-0930)
 
-📦 Meta-Research-Scientist-2025.01.10-1445
+Meta-Research-Scientist-2025.01.10-1445
    Resume - Meta Research Scientist (2025.01.10-1445)
 
-📦 Microsoft-Cloud-Engineer-2025.01.08-1620
+Microsoft-Cloud-Engineer-2025.01.08-1620
    Resume - Microsoft Cloud Engineer (2025.01.08-1620)
 
-📦 v2025.01.07-2100
+v2025.01.07-2100
    Resume - 2025.01.07-2100 (general update)
 ```
 
@@ -111,7 +111,7 @@ If you need to create a release without pushing changes:
 
 ---
 
-## 🛠️ Building from Source (Local)
+## Building from Source (Local)
 
 ### Prerequisites
 
@@ -155,7 +155,7 @@ magick convert -density 300 resume.pdf[0] -quality 90 preview.jpg
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 .
@@ -172,7 +172,7 @@ magick convert -density 300 resume.pdf[0] -quality 90 preview.jpg
 
 ---
 
-## 💡 Workflow Tips
+## Workflow Tips
 
 ### Best Practices
 
@@ -184,16 +184,16 @@ magick convert -density 300 resume.pdf[0] -quality 90 preview.jpg
 ### Commit Message Examples
 
 ```bash
-# ✅ Good - Tagged for specific job
+# Good - Tagged for specific job
 git commit -m "Highlight ML experience [job: OpenAI Research Engineer]"
 
-# ✅ Good - General improvement
+# Good - General improvement
 git commit -m "Update contact information and add new project"
 
-# ✅ Good - Multiple changes with job tag
+# Good - Multiple changes with job tag
 git commit -m "Restructure experience section and update skills [job: Amazon SDE]"
 
-# ⚠️ Okay - Works but no job tracking
+# Okay - Works but no job tracking
 git commit -m "Update resume"
 ```
 
@@ -201,33 +201,33 @@ git commit -m "Update resume"
 
 Each release with a job tag creates a permanent record:
 
-- 📅 **Timestamp** - When you applied
-- 📝 **Commit SHA** - Exact code version
-- 📄 **PDF Archive** - The exact resume you sent
-- 🖼️ **Preview** - Quick visual reference
+- Timestamp - When you applied
+- Commit SHA - Exact code version
+- PDF Archive - The exact resume you sent
+- Preview - Quick visual reference
 
 ---
 
-## 🎨 Template Credit
+## Template Credit
 
-This resume is based on the **Jake's Resume** template, a clean and professional single-page resume format popular in the tech industry.
+This resume is based on the Jake's Resume template, a clean and professional single-page resume format popular in the tech industry.
 
 - **Template:** [Jake's Resume](https://www.overleaf.com/latex/templates/jakes-resume/syzfjbzwjncs)
 - **License:** MIT
 
 ---
 
-## 📞 Contact
+## Contact
 
 **Connor Pink**
 
-- 📧 Email: ConnorPink@mrpink.cloud
-- 🌐 Portfolio: [connorpink.me](https://connorpink.me)
-- 📍 Location: Burlington, Ontario, Canada
+- Email: ConnorPink@mrpink.cloud
+- Portfolio: [connorpink.me](https://connorpink.me)
+- Location: Burlington, Ontario, Canada
 
 ---
 
-## 📝 License
+## License
 
 This resume content is © Connor Pink. The LaTeX template is licensed under MIT by Jake Gutierrez.
 
@@ -237,6 +237,6 @@ This resume content is © Connor Pink. The LaTeX template is licensed under MIT 
 
 **Last Updated:** January 2025
 
-Made with ❤️ and LaTeX | Automated with GitHub Actions
+Made with love and LaTeX | Automated with GitHub Actions
 
 </div>
