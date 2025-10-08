@@ -14,7 +14,7 @@ My professional resume built with LaTeX using the popular Jake's Resume template
   <img src="https://img.shields.io/badge/Resume-PDF-red?style=for-the-badge&logo=adobe-acrobat-reader" alt="Resume PDF"/>
 </a>
 <a href="../../releases">
-  <img src="https://img.shields.io/github/v/release/YOUR_USERNAME/YOUR_REPO?style=for-the-badge" alt="Latest Release"/>
+  <img src="https://img.shields.io/github/v/release/connorpink/Connors-Resume?style=for-the-badge" alt="Latest Release"/>
 </a>
 
 <br><br>
