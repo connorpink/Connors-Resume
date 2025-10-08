@@ -1,0 +1,104 @@
+name: Build and Release Resume
+
+on:
+  push:
+    paths:
+      - "main.tex"
+    branches:
+      - main
+  workflow_dispatch: # Backup manual trigger
+    inputs:
+      job_description:
+        description: 'Job/Company name for this resume version (e.g., "Google SWE" or "Meta Research")'
+        required: false
+        default: ""
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract job from commit message
+        id: extract_job
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "job_name=${{ inputs.job_description }}" >> $GITHUB_OUTPUT
+          else
+            # Extract [job: XYZ] from commit message
+            COMMIT_MSG="${{ github.event.head_commit.message }}"
+            JOB_NAME=$(echo "$COMMIT_MSG" | grep -oP '\[job:\s*\K[^\]]+' || echo "")
+            echo "job_name=$JOB_NAME" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
+
+      - name: Compile LaTeX
+        run: |
+          pdflatex -jobname=resume main.tex
+          pdflatex -jobname=resume main.tex
+
+      - name: Install ImageMagick
+        run: |
+          sudo apt-get install -y imagemagick ghostscript
+          sudo sed -i 's/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/' /etc/ImageMagick-6/policy.xml
+
+      - name: Generate preview image
+        run: |
+          convert -density 300 resume.pdf[0] -quality 90 preview.jpg
+
+      - name: Get timestamp
+        id: timestamp
+        run: echo "timestamp=$(date +'%Y.%m.%d-%H%M')" >> $GITHUB_OUTPUT
+
+      - name: Prepare release info
+        id: release_info
+        run: |
+          JOB_NAME="${{ steps.extract_job.outputs.job_name }}"
+          if [ -n "$JOB_NAME" ]; then
+            echo "tag_name=${JOB_NAME// /-}-${{ steps.timestamp.outputs.timestamp }}" >> $GITHUB_OUTPUT
+            echo "release_name=Resume - $JOB_NAME (${{ steps.timestamp.outputs.timestamp }})" >> $GITHUB_OUTPUT
+            echo "has_job=true" >> $GITHUB_OUTPUT
+            echo "job_name=$JOB_NAME" >> $GITHUB_OUTPUT
+          else
+            echo "tag_name=v${{ steps.timestamp.outputs.timestamp }}" >> $GITHUB_OUTPUT
+            echo "release_name=Resume - ${{ steps.timestamp.outputs.timestamp }}" >> $GITHUB_OUTPUT
+            echo "has_job=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add resume.pdf preview.jpg
+          git diff --staged --quiet || git commit -m "🤖 Auto-build: Update PDF and preview [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.release_info.outputs.tag_name }}
+          name: ${{ steps.release_info.outputs.release_name }}
+          body: |
+            📄 **${{ steps.release_info.outputs.has_job == 'true' && format('Resume for: {0}', steps.release_info.outputs.job_name) || 'Automated Resume Build' }}**
+
+            Built from commit: ${{ github.sha }}
+
+            This release contains the ${{ steps.release_info.outputs.has_job == 'true' && 'tailored resume PDF for this specific position' || 'compiled resume PDF for archival purposes' }}.
+          files: |
+            resume.pdf
+            preview.jpg
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

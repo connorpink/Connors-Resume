@@ -1,0 +1,208 @@
+%-------------------------
+% Resume in Latex
+% Author : Connor Pink
+% Based on: Jake's Resume template
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Connor Pink} \\ \vspace{1pt}
+    \small Burlington, Ontario \\ \vspace{1pt}
+    \small (647) 515-7465 $|$ \href{mailto:ConnorPink@mrpink.cloud}{\underline{ConnorPink@mrpink.cloud}} $|$ 
+    \href{https://www.linkedin.com/in/connor-pink-65b029193/}{\underline{linkedin.com/in/connor}} $|$
+    \href{https://connorpink.me}  {\underline{connorpink.me}}
+\end{center}
+
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Guelph University}{Guelph, ON}
+      {Master of Science in Computer Science}{Jan. 2025 -- Present}
+    \resumeSubheading
+      {Trent University}{Peterborough, ON}
+      {Bachelor of Science (Honours) in Computer Science with Co-op -- 84.08\% Average}{Sept. 2020 -- July 2024}
+  \resumeSubHeadingListEnd
+
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Graduate Research and Teaching Assistant}{Jan. 2025 -- Present}
+      {Guelph University}{Guelph, ON}
+      
+    % -----------Multiple Positions Heading-----------
+      \resumeSubSubheading
+       {Research Assistant -- Dr. Sykes AI and Healthcare Lab}{}
+       \resumeItemListStart
+          \resumeItem{Conducting research in Computer Vision, Image Segmentation, and Explainable AI methodologies}
+          \resumeItem{Developing and testing Generative AI models for synthetic data generation in healthcare applications}
+          \resumeItem{Contributing to academic papers on AI-driven healthcare solutions and computer vision techniques}
+       \resumeItemListEnd
+       
+      \resumeSubSubheading
+       {Teaching Assistant}{}
+       \resumeItemListStart
+          \resumeItem{CIS 3110 Operating Systems and CIS 4150 Software Testing and Reliability}
+          \resumeItem{Design and deliver lecture-style labs, grade assignments and exams, and host office hours to support student learning}
+          \resumeItem{Manage student correspondence and provide technical guidance on course concepts and assignments}
+       \resumeItemListEnd
+    % -------------------------------------------
+% -----------Multiple Positions Heading-----------
+   % \resumeSubSubheading
+   %  {Software Engineer I}{Oct 2014 - Sep 2016}
+   %  \resumeItemListStart
+   %     \resumeItem{Apache Beam}
+   %       {Apache Beam is a unified model for defining both batch and streaming data-parallel processing pipelines}
+   %  \resumeItemListEnd
+   % \resumeSubHeadingListEnd
+% -------------------------------------------
+    \resumeSubheading
+      {Student Developer CO-OP}{May 2022 -- Dec. 2023}
+      {Employment and Social Development Canada (ESDC)}{Remote}
+      \resumeItemListStart
+        \resumeItem{Developed front-end applications using .NET, LINQ, TypeScript, jQuery, MVC, and Node.js}
+        \resumeItem{Created and optimized PL/SQL scripts for back-end database operations}
+        \resumeItem{Collaborated with cross-functional teams using Azure DevOps for project management and deployment}
+        \resumeItem{Maintained and enhanced existing government web applications serving thousands of users}
+      \resumeItemListEnd
+      
+    \resumeSubheading
+      {Information Technology CO-OP}{Aug. 2021 -- Mar. 2022}
+      {Peterborough Regional Health Centre (PRHC)}{Peterborough, ON}
+      \resumeItemListStart
+        \resumeItem{Developed Active Directory PowerShell applications for automated user management and administration}
+        \resumeItem{Created an Asset Management web application with PHP frontend and MySQL backend}
+        \resumeItem{Managed and maintained systems using SCCM, IGEL UMS, ManageEngine, EPIC, and VMware}
+        \resumeItem{Provided technical support and system administration for healthcare IT infrastructure}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{Full-Stack Web Applications} $|$ \emph{React, Node.js, Express, MongoDB}}{Ongoing}
+          \resumeItemListStart
+            \resumeItem{Developed multiple full-stack applications with React front-end and Node.js Express API}
+            \resumeItem{Implemented RESTful APIs with MongoDB backend for data persistence}
+            \resumeItem{Projects showcased in portfolio at https://connorpink.me}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Asset Management System} $|$ \emph{PHP, HTML, CSS, MySQL}}{Aug. 2021 -- Mar. 2022}
+          \resumeItemListStart
+            \resumeItem{Built a web-based asset tracking system for hospital IT equipment}
+            \resumeItem{Designed and implemented MySQL database schema for efficient asset management}
+            \resumeItem{Created responsive user interface for easy asset lookup and management}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Java, C, C\#, JavaScript, Java, TypeScript, Python, PL/SQL, PHP, HTML/CSS, XML, PowerShell} \\
+     \textbf{Frameworks \& Technologies}{: Diffusion, GAN, UNet, PyTorch, Tensorflow, Conda, React, Node.js, Express, .NET, ASP.NET, MVC, jQuery, LINQ} \\
+     \textbf{Developer Tools}{: Docker, Github Actions, Google Cloud run, AWS, Git, Azure DevOps, GitHub, VS Code, Visual Studio, VMware, VirtualBox, Kali Linux} \\
+     \textbf{Databases}{: MySQL, MongoDB, PL/SQL} \\
+     \textbf{Systems \& Administration}{: Active Directory, PowerShell, SCCM, IGEL UMS, ManageEngine, EPIC}
+    }}
+ \end{itemize}
+
+
+%-------------------------------------------
+\end{document}
