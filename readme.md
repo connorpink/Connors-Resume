@@ -208,6 +208,74 @@ Each release with a job tag creates a permanent record:
 
 ---
 
+## Fork This Repository
+
+Want to use this automated resume workflow for yourself? It's fully forkable!
+
+### Quick Start Guide
+
+1. **Fork the repository**
+
+   - Click the "Fork" button at the top right of this repository
+   - This creates your own copy under your GitHub account
+
+2. **Edit `main.tex` with your information**
+
+   - Replace Connor Pink's details with your own:
+     - Name, contact info, location (lines 97-101)
+     - Education section (lines 106-114)
+     - Experience section (lines 117-171)
+     - Projects section (lines 174-191)
+     - Technical Skills section (lines 195-204)
+
+3. **Update the README.md**
+
+   - Replace the "About" section with your details (lines 32-36)
+   - Update the contact section with your information (lines 220-226)
+   - Customize any other sections as needed
+
+4. **Push your changes**
+
+   ```bash
+   git add main.tex README.md
+   git commit -m "Initial resume setup"
+   git push
+   ```
+
+5. **That's it!** The GitHub Actions workflow will automatically:
+   - Compile your LaTeX resume to PDF
+   - Generate a preview image
+   - Create a release with your resume
+   - Commit the files back to your repo
+
+### What Works Out of the Box
+
+- **Automatic PDF compilation** - LaTeX builds on every push
+- **Release versioning** - Tagged releases with timestamps
+- **Job-specific tagging** - Track applications with `[job: Company Position]`
+- **Preview generation** - Automatic JPG preview of first page
+- **No setup required** - Uses `GITHUB_TOKEN` (automatically available)
+
+### No Configuration Needed
+
+The workflow uses only:
+
+- Standard GitHub Actions with `GITHUB_TOKEN` (provided automatically)
+- Public LaTeX packages (installed during build)
+- Free ImageMagick tools
+
+**No secrets, API keys, or additional setup required!**
+
+### Troubleshooting
+
+If the workflow fails on first run:
+
+1. Go to **Settings** → **Actions** → **General**
+2. Under "Workflow permissions", ensure "Read and write permissions" is selected
+3. Re-run the failed workflow
+
+---
+
 ## Template Credit
 
 This resume is based on the Jake's Resume template, a clean and professional single-page resume format popular in the tech industry.
