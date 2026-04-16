@@ -1,5 +1,8 @@
 name: Build and Release Resume
 
+permissions:
+  contents: write
+
 on:
   push:
     paths:
@@ -8,6 +11,15 @@ on:
       - main
   workflow_dispatch: # Backup manual trigger
     inputs:
+      publish_track:
+        description: "How this build should be published"
+        required: false
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - general
+          - job-specific
       job_description:
         description: 'Job/Company name for this resume version (e.g., "Google SWE" or "Meta Research")'
         required: false
@@ -29,11 +41,13 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "job_name=${{ inputs.job_description }}" >> $GITHUB_OUTPUT
+            echo "publish_track=${{ inputs.publish_track }}" >> $GITHUB_OUTPUT
           else
             # Extract [job: XYZ] from commit message
             COMMIT_MSG="${{ github.event.head_commit.message }}"
             JOB_NAME=$(echo "$COMMIT_MSG" | grep -oP '\[job:\s*\K[^\]]+' || echo "")
             echo "job_name=$JOB_NAME" >> $GITHUB_OUTPUT
+            echo "publish_track=auto" >> $GITHUB_OUTPUT
           fi
 
       - name: Install LaTeX
@@ -63,15 +77,39 @@ jobs:
         id: release_info
         run: |
           JOB_NAME="${{ steps.extract_job.outputs.job_name }}"
-          if [ -n "$JOB_NAME" ]; then
-            echo "tag_name=${JOB_NAME// /-}-${{ steps.timestamp.outputs.timestamp }}" >> $GITHUB_OUTPUT
-            echo "release_name=Resume - $JOB_NAME (${{ steps.timestamp.outputs.timestamp }})" >> $GITHUB_OUTPUT
+          PUBLISH_TRACK="${{ steps.extract_job.outputs.publish_track }}"
+          TIMESTAMP="${{ steps.timestamp.outputs.timestamp }}"
+
+          if [ "$PUBLISH_TRACK" = "general" ]; then
+            RELEASE_KIND="general"
+          elif [ "$PUBLISH_TRACK" = "job-specific" ]; then
+            RELEASE_KIND="job-specific"
+          elif [ -n "$JOB_NAME" ]; then
+            RELEASE_KIND="job-specific"
+          else
+            RELEASE_KIND="general"
+          fi
+
+          if [ "$RELEASE_KIND" = "job-specific" ]; then
+            if [ -z "$JOB_NAME" ]; then
+              echo "A job-specific release requires a job description." >&2
+              exit 1
+            fi
+
+            SAFE_JOB_NAME=$(printf '%s' "$JOB_NAME" | sed -E 's/[^A-Za-z0-9._-]+/-/g; s/^-+//; s/-+$//')
+            echo "archive_tag=${SAFE_JOB_NAME}-${TIMESTAMP}" >> $GITHUB_OUTPUT
+            echo "archive_release_name=Resume - $JOB_NAME ($TIMESTAMP)" >> $GITHUB_OUTPUT
+            echo "release_kind=job-specific" >> $GITHUB_OUTPUT
             echo "has_job=true" >> $GITHUB_OUTPUT
             echo "job_name=$JOB_NAME" >> $GITHUB_OUTPUT
+            echo "prerelease=true" >> $GITHUB_OUTPUT
           else
-            echo "tag_name=v${{ steps.timestamp.outputs.timestamp }}" >> $GITHUB_OUTPUT
-            echo "release_name=Resume - ${{ steps.timestamp.outputs.timestamp }}" >> $GITHUB_OUTPUT
+            echo "archive_tag=general-${TIMESTAMP}" >> $GITHUB_OUTPUT
+            echo "archive_release_name=Resume - General ($TIMESTAMP)" >> $GITHUB_OUTPUT
+            echo "release_kind=general" >> $GITHUB_OUTPUT
             echo "has_job=false" >> $GITHUB_OUTPUT
+            echo "job_name=" >> $GITHUB_OUTPUT
+            echo "prerelease=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Commit and push changes
@@ -84,21 +122,72 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Release
+      - name: Create archive release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.release_info.outputs.tag_name }}
-          name: ${{ steps.release_info.outputs.release_name }}
+          tag_name: ${{ steps.release_info.outputs.archive_tag }}
+          name: ${{ steps.release_info.outputs.archive_release_name }}
           body: |
             📄 **${{ steps.release_info.outputs.has_job == 'true' && format('Resume for: {0}', steps.release_info.outputs.job_name) || 'Automated Resume Build' }}**
 
             Built from commit: ${{ github.sha }}
 
-            This release contains the ${{ steps.release_info.outputs.has_job == 'true' && 'tailored resume PDF for this specific position' || 'compiled resume PDF for archival purposes' }}.
+            This release contains the ${{ steps.release_info.outputs.has_job == 'true' && 'tailored resume PDF for this specific position' || 'compiled general resume PDF for archival purposes' }}.
+          files: |
+            resume.pdf
+            preview.jpg
+          draft: false
+          prerelease: ${{ steps.release_info.outputs.prerelease }}
+          make_latest: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update stable general tags
+        if: steps.release_info.outputs.release_kind == 'general'
+        run: |
+          git tag -f general "${GITHUB_SHA}"
+          git tag -f latest "${GITHUB_SHA}"
+          git push origin refs/tags/general --force
+          git push origin refs/tags/latest --force
+
+      - name: Publish general release alias
+        if: steps.release_info.outputs.release_kind == 'general'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: general
+          name: Resume - General
+          body: |
+            📄 **General resume**
+
+            Stable release for the latest general-purpose version of this resume.
+
+            Built from commit: ${{ github.sha }}
           files: |
             resume.pdf
             preview.jpg
           draft: false
           prerelease: false
+          make_latest: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish latest release alias
+        if: steps.release_info.outputs.release_kind == 'general'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: latest
+          name: Resume - Latest General
+          body: |
+            📄 **Latest general resume**
+
+            Moving release alias for external links that should always resolve to the newest general resume.
+
+            Built from commit: ${{ github.sha }}
+          files: |
+            resume.pdf
+            preview.jpg
+          draft: false
+          prerelease: false
+          make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

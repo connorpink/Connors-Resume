@@ -51,6 +51,23 @@ This repository uses **GitHub Actions** to automatically build and release your 
    - Generates preview.jpg
    - Commits PDF and preview back to repo
    - Creates a tagged release
+   - Refreshes stable `general` and `latest` releases for general-purpose builds
+
+### Release Types
+
+- **General build** - Triggered when there is no `[job: ...]` tag in the commit message. Creates an archival release like `general-2026.04.16-1430` and also refreshes the moving `general` and `latest` release tags.
+- **Job-specific build** - Triggered when the commit message includes `[job: Company Position]`. Creates a timestamped archival release for that application and does **not** move the stable `general` or `latest` tags.
+
+### Stable Download Links
+
+For a link that should always point at your newest general resume, use one of these release asset URLs:
+
+```text
+https://github.com/connorpink/Connors-Resume/releases/download/general/resume.pdf
+https://github.com/connorpink/Connors-Resume/releases/download/latest/resume.pdf
+```
+
+You do **not** need to create the `general` or `latest` tags in GitHub settings first. The workflow creates and force-updates those tags automatically.
 
 ### Tagging Releases for Specific Jobs
 
@@ -63,7 +80,7 @@ git commit -m "Tailor experience section [job: Google SWE]"
 git push
 ```
 
-**Result:** Creates release tagged as `Google-SWE-2025.01.07-1430`
+**Result:** Creates prerelease tagged as `Google-SWE-2025.01.07-1430`
 
 ```bash
 # For a different position
@@ -71,7 +88,7 @@ git commit -m "Update skills for ML role [job: Meta Research Scientist]"
 git push
 ```
 
-**Result:** Creates release tagged as `Meta-Research-Scientist-2025.01.07-1445`
+**Result:** Creates prerelease tagged as `Meta-Research-Scientist-2025.01.07-1445`
 
 ```bash
 # For general updates (no job tag)
@@ -79,7 +96,7 @@ git commit -m "Fix typo in education section"
 git push
 ```
 
-**Result:** Creates release tagged as `v2025.01.07-1500`
+**Result:** Creates release tagged as `general-2025.01.07-1500` and refreshes the moving `general` and `latest` release tags
 
 ### Example Release History
 
@@ -95,8 +112,14 @@ Meta-Research-Scientist-2025.01.10-1445
 Microsoft-Cloud-Engineer-2025.01.08-1620
    Resume - Microsoft Cloud Engineer (2025.01.08-1620)
 
-v2025.01.07-2100
-   Resume - 2025.01.07-2100 (general update)
+general-2025.01.07-2100
+   Resume - General (2025.01.07-2100)
+
+general
+   Resume - General
+
+latest
+   Resume - Latest General
 ```
 
 ### Manual Trigger (Backup Option)
@@ -106,8 +129,9 @@ If you need to create a release without pushing changes:
 1. Go to **Actions** tab
 2. Click **Build and Release Resume**
 3. Click **Run workflow**
-4. (Optional) Enter job description
-5. Click **Run workflow** button
+4. Choose `auto`, `general`, or `job-specific`
+5. (Optional) Enter job description
+6. Click **Run workflow** button
 
 ---
 
@@ -178,8 +202,9 @@ magick convert -density 300 resume.pdf[0] -quality 90 preview.jpg
 
 1. **Always tag job-specific versions** - Use `[job: Company Position]` to track applications
 2. **Use descriptive commit messages** - Makes your git history more useful
-3. **Check releases before applying** - Verify the PDF looks correct
-4. **Download from releases** - For applications, download from the Releases page to ensure you have the exact version
+3. **Use general commits for your public version** - Plain commit messages refresh the stable `general` and `latest` links
+4. **Check releases before applying** - Verify the PDF looks correct
+5. **Download from releases** - For applications, download from the Releases page to ensure you have the exact version
 
 ### Commit Message Examples
 
@@ -251,7 +276,8 @@ Want to use this automated resume workflow for yourself? It's fully forkable!
 ### What Works Out of the Box
 
 - **Automatic PDF compilation** - LaTeX builds on every push
-- **Release versioning** - Tagged releases with timestamps
+- **Release versioning** - Tagged archival releases with timestamps
+- **Stable public links** - Moving `general` and `latest` release tags for your newest general resume
 - **Job-specific tagging** - Track applications with `[job: Company Position]`
 - **Preview generation** - Automatic JPG preview of first page
 - **No setup required** - Uses `GITHUB_TOKEN` (automatically available)
