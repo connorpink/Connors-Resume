@@ -42,11 +42,13 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "job_name=${{ inputs.job_description }}" >> $GITHUB_OUTPUT
             echo "publish_track=${{ inputs.publish_track }}" >> $GITHUB_OUTPUT
+            echo "publish_track=${{ inputs.publish_track }}" >> $GITHUB_OUTPUT
           else
             # Extract [job: XYZ] from commit message
             COMMIT_MSG="${{ github.event.head_commit.message }}"
             JOB_NAME=$(echo "$COMMIT_MSG" | grep -oP '\[job:\s*\K[^\]]+' || echo "")
             echo "job_name=$JOB_NAME" >> $GITHUB_OUTPUT
+            echo "publish_track=auto" >> $GITHUB_OUTPUT
             echo "publish_track=auto" >> $GITHUB_OUTPUT
           fi
 
@@ -138,7 +140,6 @@ jobs:
             preview.jpg
           draft: false
           prerelease: ${{ steps.release_info.outputs.prerelease }}
-          make_latest: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -167,7 +168,6 @@ jobs:
             preview.jpg
           draft: false
           prerelease: false
-          make_latest: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -188,6 +188,5 @@ jobs:
             preview.jpg
           draft: false
           prerelease: false
-          make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
