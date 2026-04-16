@@ -21,7 +21,7 @@
 \input{glyphtounicode}
 
 \pagestyle{fancy}
-\fancyhf{}
+\fancyhf{} % clear all header and footer fields
 \fancyfoot{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -32,7 +32,6 @@
 \addtolength{\textwidth}{1in}
 \addtolength{\topmargin}{-.5in}
 \addtolength{\textheight}{1.0in}
-\setlength{\footskip}{5pt}
 
 \urlstyle{same}
 
@@ -88,7 +87,7 @@
     \newcommand{\resumeSubHeadingListEnd}{
 \end{itemize}}
 \newcommand{\resumeItemListStart}{
-\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=2pt]}
+\begin{itemize}}
     \newcommand{\resumeItemListEnd}{
 \end{itemize}\vspace{-5pt}}
 
@@ -103,7 +102,7 @@
   \small Burlington, Ontario \\ \vspace{1pt}
   \small (647) 515-7465 $|$ \href{mailto:ConnorPink@mrpink.cloud}{\underline{ConnorPink@mrpink.cloud}} $|$
   \href{https://www.linkedin.com/in/connor-pink-65b029193/}{\underline{linkedin.com/in/connor}} $|$
-  \href{https://connorpink.me}{\underline{connorpink.me}}
+  \href{https://connorpink.me}  {\underline{connorpink.me}}
 \end{center}
 
 %-----------EDUCATION-----------
@@ -113,15 +112,11 @@
 {University of Guelph}{Guelph, ON}
 {Master of Science in Computer Science -- AI and Machine Learning Focus}{Jan. 2025 -- Present}
 \resumeItemListStart
-\resumeItem{Research in generative AI, computer vision, and explainable AI for healthcare imaging; coursework in Deep Learning and Advanced Machine Learning}
-\resumeItem{Recipient of the QEII-GSST scholarship; total funding received from the University of Guelph approximately \$55,000}
+\resumeItem{Research: Computer Vision, Generative AI, and Explainable AI in Healthcare. Coursework: Deep Learning, Advanced Machine Learning}
 \resumeItemListEnd
 \resumeSubheading
 {Trent University}{Peterborough, ON}
 {Bachelor of Science (Honours) in Computer Science with Co-op -- 84.08\% Average}{Sept. 2020 -- July 2024}
-\resumeItemListStart
-\resumeItem{Dean's Honour Roll and Trent University Entrance Scholarship recipient}
-\resumeItemListEnd
 \resumeSubHeadingListEnd
 
 %-----------EXPERIENCE-----------
@@ -130,34 +125,23 @@
 
 \resumeSubheading
 {Graduate Research and Teaching Assistant}{Jan. 2025 -- Present}
-{University of Guelph}{Guelph, ON}
+{Guelph University}{Guelph, ON}
+
+% -----------Multiple Positions Heading-----------
 \resumeSubSubheading
 {Research Assistant -- Dr. Sykes AI and Healthcare Lab}{}
 \resumeItemListStart
-\resumeItem{Develop PyTorch-based generative and computer vision systems for healthcare imaging, including diffusion, GAN, and segmentation workflows}
-\resumeItem{Build reproducible end-to-end pipelines for data preparation, training, evaluation, and explainability, with Docker deployments on GCP and AWS}
-\resumeItem{Contribute to research papers and communicate technical findings to collaborators across AI and healthcare domains}
+\resumeItem{Develop Python and PyTorch software for generative and computer vision models in healthcare imaging, training diffusion and GAN architectures for synthetic data generation}
+\resumeItem{Build end-to-end pipelines for image segmentation and model evaluation, creating reproducible experimentation and verification workflows across data preparation, training, and analysis}
+\resumeItem{Deploy proof-of-concept AI systems with Docker on GCP and AWS for scalable inference, while applying explainable AI methods to inspect model behaviour and support interpretation}
+\resumeItem{Contribute to academic papers and present technical findings to cross-functional collaborators, translating open-ended research problems into actionable engineering next steps}
 \resumeItemListEnd
+
 \resumeSubSubheading
 {Teaching Assistant}{}
 \resumeItemListStart
-\resumeItem{Support CIS 3110 Operating Systems, CIS 4150 Software Testing, and CIS 3120 Digital Systems through labs, grading, and office hours}
-\resumeItemListEnd
-
-\resumeSubheading
-{Student Developer Co-op}{May 2022 -- Dec. 2023}
-{Employment and Social Development Canada (ESDC)}{Remote}
-\resumeItemListStart
-\resumeItem{Built and maintained government web applications using .NET, TypeScript, LINQ, MVC, Node.js, and PL/SQL}
-\resumeItem{Collaborated in Azure DevOps-based delivery workflows across front-end, back-end, and database changes}
-\resumeItemListEnd
-
-\resumeSubheading
-{Information Technology Co-op}{Aug. 2021 -- Mar. 2022}
-{Peterborough Regional Health Centre (PRHC)}{Peterborough, ON}
-\resumeItemListStart
-\resumeItem{Developed PowerShell automation for Active Directory administration and helped maintain healthcare IT systems}
-\resumeItem{Built an internal asset management web application with PHP and MySQL to support equipment tracking}
+\resumeItem{Support CIS 3110 Operating Systems, CIS 4150 Software Testing, and CIS 3120 Digital Systems by leading labs, grading assignments, and clearly communicating complex technical material during office hours}
+\resumeItem{Guide students through debugging, test design, and systems concepts, reinforcing rigorous reasoning about software behaviour and hardware-software interaction}
 \resumeItemListEnd
 
 \resumeSubHeadingListEnd
@@ -166,17 +150,19 @@
 \section{Projects}
 \resumeSubHeadingListStart
 \resumeProjectHeading
-{\textbf{Generative AI Pipeline for Medical Imaging} $|$ \emph{Python, PyTorch, Docker, GCP}}{Jan. 2025 -- Present}
+{\textbf{Generative AI Pipeline for Medical Imaging} $|$ \emph{Python, PyTorch, Diffusion Models}}{Jan. 2025 -- Present}
 \resumeItemListStart
-\resumeItem{Designed an end-to-end pipeline for synthetic medical image generation, fine-tuning, and evaluation with reproducible experimentation workflows}
-\resumeItem{Improved output quality by 15\% through iterative validation, error analysis, and explainable AI-driven model inspection}
-\resumeItem{Published at the CanAI Conference 2026 and deployed containerized inference services for scalable research use}
+\resumeItem{Designed and deployed an end-to-end generative AI pipeline for synthetic medical image generation with reproducible experimentation workflows}
+\resumeItem{Implemented fine-tuning and evaluation workflows on healthcare datasets, achieving a 15\% quality improvement through iterative validation and error analysis}
+\resumeItem{Containerized inference services with Docker and deployed them to GCP, improving reproducibility and scalability for research use}
+\resumeItem{Applied explainable AI techniques to inspect model outputs and communicate system limitations to collaborators}
 \resumeItemListEnd
 \resumeProjectHeading
-{\textbf{Full-Stack Web Applications} $|$ \emph{React, Node.js, Express, MongoDB}}{Ongoing}
+{\textbf{ML-Based Bug Detection System} $|$ \emph{Python, Machine Learning, Data Analysis}}{Jan. 2025 -- July. 2025}
 \resumeItemListStart
-\resumeItem{Develop and deploy full-stack applications with REST APIs, database-backed features, and responsive front-end interfaces}
-\resumeItem{Portfolio projects span product-style builds and practical tooling, demonstrating breadth beyond research-focused work}
+\resumeItem{Partnered with Guelph's industry sponsor Nevvon to investigate application-specific bugs and frame the problem as a data-driven ML analysis task}
+\resumeItem{Built Python-based workflows to detect, classify, and diagnose bug patterns, supporting root-cause analysis and prioritization in a production environment}
+\resumeItem{Delivered actionable findings and documented evaluation results for the development team, contributing to improved application stability and faster debugging}
 \resumeItemListEnd
 \resumeSubHeadingListEnd
 
@@ -186,9 +172,10 @@
     \small{
     \item{
         \textbf{Languages}{: Python, Java, C, C\#, JavaScript, TypeScript, PL/SQL, PHP, HTML/CSS, PowerShell} \\
-        \textbf{AI/ML}{: PyTorch, MONAI, WandB, TensorFlow, Scikit-learn, Diffusion Models, GANs, U-Net, Explainable AI} \\
-        \textbf{Web \& Software}{: React, Node.js, Express, .NET, REST APIs, MongoDB, MySQL, GitHub Actions, CI/CD} \\
-        \textbf{Cloud \& Tools}{: Docker, GCP, AWS, Azure DevOps, Git, GitHub, Jupyter, Conda, VS Code}
+        \textbf{AI/ML}{: PyTorch, Monai, WandB, TensorFlow, Scikit-learn, Diffusion Models, GANs, U-Net, LangChain, OpenAI API} \\
+        \textbf{Validation \& Analysis}{: Model Evaluation, Explainable AI, Data Analysis, Experimental Design, Debugging, Reproducible Experimentation} \\
+        \textbf{Systems \& Tools}{: Docker, GCP, AWS, Azure, Git, GitHub, GitHub Actions, CI/CD Pipelines, Kubernetes, Azure DevOps, Jupyter, Conda, VS Code} \\
+        \textbf{Software \& Data}{: RESTful APIs, React, Node.js, Express, .NET, MongoDB, MySQL, Technical Writing}
     }}
 \end{itemize}
 
